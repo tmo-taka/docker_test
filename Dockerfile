@@ -54,8 +54,8 @@ COPY --from=build /work/dist /usr/vite-project/dist
 
 
 # 下記はわりとnuxt固定値があるらしい
-EXPOSE 3000
-ENV NUXT_HOST=127.0.0.0
-ENV NUXT_PORT=3000
+EXPOSE 4173
+ENV VITE_HOST=127.0.0.1
+ENV VITE_PORT=4173
 
-CMD npm run preview
+CMD npm run dev
