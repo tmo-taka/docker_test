@@ -1,0 +1,39 @@
+# メモ
+
+## image関連
+
+### docker imagesでnoneのみを削除コマンド
+`docker rmi $(docker images -f "dangling=true" -q)`
+
+### image削除
+`docker rmi [イメージID]`
+
+## image作成
+`docker image build -t イメージ名[:タグ名] [Dockerfileが配置されているディレクトリパス]`
+
+## コンテナ関連
+
+### 全てのコンテナを表示 (実行中でないものも)
+`docker ps -a`
+
+### コンテナ ID のみ表示
+`docker ps -p`  
+`docker ps -a -p`
+
+### コンテナ起動
+`docker run --name [コンテナ名] -it [イメージ名]`
+
+### stopした際にimageを削除するコマンド
+`docker run --name [コンテナ名] -it [イメージ名] --rm`
+
+### コンテナ停止
+`docker stop <CONTAINER IDまたはNAME>`
+
+### コンテナ削除
+`docker rm {{CONTAINER ID}}`
+
+### コンテナを裏側で起動
+`docker container run -d`
+
+### コンテナのログ確認
+`Docker logs -f <コンテナID>`

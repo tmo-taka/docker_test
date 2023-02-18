@@ -27,6 +27,7 @@ export default defineConfig({
     },
   },
   plugins: [react()],
+  // https://github.com/vitejs/vite/discussions/3396 (デフォルトのホスト 127.0.0.1 セキュア制限でファイルを外部に公開できないため設定)
   server: {
     host: true
   }

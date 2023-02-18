@@ -53,9 +53,9 @@ COPY --from=build /work/node_modules /usr/vite-project/node_modules
 COPY --from=build /work/dist /usr/vite-project/dist
 
 
-# 下記はわりとnuxt固定値があるらしい
-EXPOSE 4173
+# 下記はわりとvite固定値があるらしい
+EXPOSE 5173
 ENV VITE_HOST=127.0.0.1
-ENV VITE_PORT=4173
+ENV VITE_PORT=5173
 
-CMD npm run dev
+CMD npm run host
