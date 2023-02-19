@@ -43,3 +43,4 @@
 
 ## この問題が起きているくさい
 https://qiita.com/amuyikam/items/01a8c16e3ddbcc734a46
+→関係なく -pオプションでポートフォワードする必要あり。
