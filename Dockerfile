@@ -17,7 +17,7 @@
 #======================================================================================================================
 FROM node:16.19-bullseye as nodejs
 
-WORKDIR /work/node
+WORKDIR /work
 
 COPY ./vite-project/package.json .
 COPY ./vite-project/package-lock.json .
@@ -31,9 +31,10 @@ FROM node:16.19-bullseye as build
 
 WORKDIR /work
 
-# srcディレクトリのものをwork配下にコピーするという記述
+# vite-projectディレクトリのものをwork配下にコピーするという記述
 COPY ./vite-project /work
-COPY --from=nodejs /work/node/node_modules /work/node_modules
+# 前タスクのnode.jsから持ってくる
+COPY --from=nodejs /work/node_modules /work/node_modules
 
 RUN ls -l
 
@@ -48,10 +49,15 @@ WORKDIR /usr/vite-project
 
 COPY --from=build /work/package.json /usr/vite-project/.
 COPY --from=build /work/package-lock.json /usr/vite-project/.
+COPY --from=build /work/tsconfig.json /usr/vite-project/.
+COPY --from=build /work/package-lock.json /usr/vite-project/.
 COPY --from=build /work/vite.config.ts /usr/vite-project/.
 COPY --from=build /work/node_modules /usr/vite-project/node_modules
 COPY --from=build /work/dist /usr/vite-project/dist
-
+COPY --from=build /work/public /usr/vite-project/public
+COPY --from=build /work/src /usr/vite-project/src
+COPY --from=build /work/lib /usr/vite-project/lib
+COPY --from=build /work/index.html /usr/vite-project/.
 
 # 下記はわりとvite固定値があるらしい
 EXPOSE 5173

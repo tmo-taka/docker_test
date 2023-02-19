@@ -37,3 +37,9 @@
 
 ### コンテナのログ確認
 `Docker logs -f <コンテナID>`
+
+### 止まっているコンテナ一括削除
+`docker rm `docker ps -f "status=exited" -q``
+
+## この問題が起きているくさい
+https://qiita.com/amuyikam/items/01a8c16e3ddbcc734a46
