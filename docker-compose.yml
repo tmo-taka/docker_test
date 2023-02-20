@@ -1,0 +1,11 @@
+version: "3"
+
+services:
+  dcoker-test:
+    image: vite-image:latest
+    working_dir: "./"
+    ports:
+      - 5173:5173
+    volumes:
+      - ./vite-prohect:/usr/vite-project/
+    restart: always
