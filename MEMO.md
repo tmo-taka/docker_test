@@ -44,3 +44,9 @@
 ## この問題が起きているくさい
 https://qiita.com/amuyikam/items/01a8c16e3ddbcc734a46
 →関係なく -pオプションでポートフォワードする必要あり。
+
+## docker compose についての説明
+https://o2mamiblog.com/docker-beginner-2/
+
+### node_modulesをvolumesのmountから除外する
+https://zenn.dev/yumemi_inc/articles/3d327557af3554

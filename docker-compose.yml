@@ -1,11 +1,13 @@
 version: "3"
 
 services:
-  dcoker-test:
+  docker-test:
     image: vite-image:latest
-    working_dir: "./"
+    working_dir: "/usr/vite-project"
     ports:
       - 5173:5173
-    volumes:
-      - ./vite-prohect:/usr/vite-project/
+    # volumes:
+      # - ./vite-project:/usr/vite-project/
     restart: always
+    container_name: docker-vite
+    tty: true
