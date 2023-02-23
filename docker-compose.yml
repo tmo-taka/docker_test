@@ -1,13 +1,17 @@
 version: "3"
 
+volumes:
+  nestjs-node-modules:
+
 services:
   docker-test:
     image: vite-image:latest
     working_dir: "/usr/vite-project"
     ports:
       - 5173:5173
-    # volumes:
-      # - ./vite-project:/usr/vite-project/
+    volumes:
+      - ./vite-project:/usr/vite-project/:cached
+      - nestjs-node-modules:/usr/vite-project/node_modules
     restart: always
     container_name: docker-vite
     tty: true
