@@ -1,32 +1,30 @@
-import { useState } from 'react'
-import reactLogo from './assets/react.svg'
+import { useState, useEffect } from 'react'
+import axios from 'axios';
 import './App.css'
+import {SearchResults, Item} from '@/types/Qiita'
 
 function App() {
-  const [count, setCount] = useState(0)
+  const [result, setResult] = useState<SearchResults>({
+    items:[{} as Item],
+    totalCount: 0,
+    pageInfo: {
+      endCursor: '',
+      hasNextPage: false,
+    }
+  });
+
+  useEffect(() => {
+      axios.get('https://qiita.com/api/v2/items')
+      .then(res => {
+        console.log(res.data);
+        setResult(res.data);
+      })
+  },[])
 
   return (
     <div className="App">
-      <div>
-        <a href="https://vitejs.dev" target="_blank">
-          <img src="/vite.svg" className="logo" alt="Vite logo" />
-        </a>
-        <a href="https://reactjs.org" target="_blank">
-          <img src={reactLogo} className="logo react" alt="React logo" />
-        </a>
-      </div>
-      <h1>Vite + React</h1>
-      <div className="card">
-        <button onClick={() => setCount((count) => count + 1)}>
-          count is {count}
-        </button>
-        <p>
-          Edit <code>src/App.tsx</code> and save to test HMR
-        </p>
-      </div>
-      <p className="read-the-docs">
-        Click on the Vite and React logos to learn more
-      </p>
+      <h1>TECH BLOG</h1>
+      <div> {result.totalCount} </div>
     </div>
   )
 }

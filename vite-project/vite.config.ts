@@ -1,6 +1,7 @@
 import { defineConfig } from 'vite'
 import { resolve } from 'path'
 import react from '@vitejs/plugin-react-swc'
+import tsconfigPaths from 'vite-tsconfig-paths'
 
 // https://vitejs.dev/config/
 // https://vitejs.dev/guide/build.html#library-mode
@@ -26,9 +27,15 @@ export default defineConfig({
       },
     },
   },
-  plugins: [react()],
+  plugins: [
+    react(),
+    tsconfigPaths()
+  ],
   // https://github.com/vitejs/vite/discussions/3396 (デフォルトのホスト 127.0.0.1 セキュア制限でファイルを外部に公開できないため設定)
   server: {
     host: true
-  }
+  },
+  // define: {
+  //   QITA_API: 'https://qiita.com/api/v2/items'
+  // }
 })
