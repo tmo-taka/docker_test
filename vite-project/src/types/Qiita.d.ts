@@ -34,6 +34,7 @@ export type Item = {
     commentsCount: Int!
     createdAt: String!
     updatedAt: String!
+    url: string
 }
 
 export type SearchResults = {

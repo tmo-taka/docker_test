@@ -35,6 +35,13 @@ export default defineConfig({
   server: {
     host: true
   },
+  css: {
+    preprocessorOptions: {
+      css: {
+        additionalData: `@import "@/assets/reset.css";`
+      }
+    }
+  }
   // define: {
   //   QITA_API: 'https://qiita.com/api/v2/items'
   // }

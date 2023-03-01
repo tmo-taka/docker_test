@@ -1,30 +1,55 @@
 import { useState, useEffect } from 'react'
-import axios from 'axios';
+import { apiClient } from '@/common/axios';
 import './App.css'
 import {SearchResults, Item} from '@/types/Qiita'
 
 function App() {
-  const [result, setResult] = useState<SearchResults>({
-    items:[{} as Item],
-    totalCount: 0,
-    pageInfo: {
-      endCursor: '',
-      hasNextPage: false,
-    }
-  });
+  const [searchWorld, setSearchWord] = useState<string>('')
+  const [results, setResults] = useState<Item[]>([]);
+
+  const changeWord = (event:React.ChangeEvent<HTMLInputElement>):void => {
+    const newValue:string = event.target.value;
+    setSearchWord(newValue);
+  }
+
+  const blurForm = () => {
+    getAPi();
+  }
+
+  const getAPi = () => {
+    apiClient.get(`/tags/${searchWorld}/items`)
+    .then(res => {
+      setResults(res.data);
+    })
+  }
 
   useEffect(() => {
-      axios.get('https://qiita.com/api/v2/items')
+    apiClient.get('/items')
       .then(res => {
-        console.log(res.data);
-        setResult(res.data);
+        setResults(res.data);
       })
   },[])
 
   return (
     <div className="App">
       <h1>TECH BLOG</h1>
-      <div> {result.totalCount} </div>
+      <input
+        type="text"
+        value={searchWorld}
+        onChange={changeWord}
+        onBlur={blurForm}
+      />
+      <ul>
+        {
+          results.map((data:Item) => {
+            return (
+              <li key={data.title}>
+                <a href={data.url} target="_blank">{data.title}</a>
+              </li>
+            )
+          })
+        }
+      </ul>
     </div>
   )
 }
