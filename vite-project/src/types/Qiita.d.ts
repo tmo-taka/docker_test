@@ -18,10 +18,9 @@ export type User = {
 
 export type Tag = {
     id: String!
-    name: String!
-    iconUrl: String
-    items: [Item!]!
-    followers: [User!]!
+    items_count: Number
+    icon_url: String
+    followers_count: Number
 }
 
 export type Item = {
