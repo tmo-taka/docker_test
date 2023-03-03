@@ -8,10 +8,10 @@ function App() {
   const [results, setResults] = useState<Item[]>([]);
   const [suggestion, setSuggestion] = useState<Tag[]>([]);
 
-  const changeWord = async(event:React.ChangeEvent<HTMLInputElement>):void => {
+  const changeWord = (event:React.ChangeEvent<HTMLInputElement>):void => {
     const newValue:string = event.target.value;
-    await setSearchWord(newValue);
-    await getTags();
+    setSearchWord(newValue);
+    // https://zenn.dev/syu/articles/3c4aa813b57b8c
   }
 
   const blurForm = () => {
@@ -30,10 +30,13 @@ function App() {
   }
 
   const getTags = () => {
-    apiClient.get(`/tags/${searchWorld}`)
-    .then(res => {
-      res.data.length ? setSuggestion(res.data) : '';
-    })
+    if(searchWorld) {
+      apiClient.get(`/tags/${searchWorld}`)
+      .then(res => {
+        console.log(res.data);
+        res.data.length ? setSuggestion(res.data) : '';
+      })
+    }
   }
 
   useEffect(() => {
@@ -42,6 +45,10 @@ function App() {
         setResults(res.data);
       })
   },[])
+
+  useEffect(() => {
+    getTags();
+  },[searchWorld])
 
   return (
     <div className="App">
