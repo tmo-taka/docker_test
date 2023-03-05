@@ -50,6 +50,7 @@ WORKDIR /usr/vite-project
 COPY --from=build /work/package.json /usr/vite-project/.
 COPY --from=build /work/package-lock.json /usr/vite-project/.
 COPY --from=build /work/tsconfig.json /usr/vite-project/.
+COPY --from=build /work/tsconfig.node.json /usr/vite-project/.
 COPY --from=build /work/package-lock.json /usr/vite-project/.
 COPY --from=build /work/vite.config.ts /usr/vite-project/.
 COPY --from=build /work/node_modules /usr/vite-project/node_modules

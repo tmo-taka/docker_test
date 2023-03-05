@@ -17,15 +17,15 @@ export type User = {
 }
 
 export type Tag = {
-    id: String!
+    id: string
     items_count: Number
     icon_url: String
     followers_count: Number
 }
 
 export type Item = {
-    id: String!
-    title: String!
+    id: string
+    title: string
     body: String
     user: User!
     tags: [Tag!]!

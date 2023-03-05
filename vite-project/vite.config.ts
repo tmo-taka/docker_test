@@ -36,15 +36,20 @@ export default defineConfig(({command, mode}) => {
     ],
     envDir: './',
     // https://github.com/vitejs/vite/discussions/3396 (デフォルトのホスト 127.0.0.1 セキュア制限でファイルを外部に公開できないため設定)
+    // https://ja.vitejs.dev/config/server-options.html#server-hmr (proxyのリバースがうまくいかない問題)
     server: {
       host: true,
+      port: 5173,
       proxy: {
         '^/qiita-api': {
           target: env.VITE_QIITA_API_URL,
           changeOrigin: true,
           rewrite: (path) => path.replace(/^\/qiita-api/, ''),
         }
-      }
+      },
+      // hmr: {
+      //   overlay :false
+      // }
     },
     css: {
       preprocessorOptions: {

@@ -1,7 +1,7 @@
 import { useState, useEffect } from 'react'
 import { apiClient } from '@/common/axios';
-import './App.css'
 import {Item, Tag} from '@/types/Qiita'
+import './App.css'
 
 function App() {
   const [searchWorld, setSearchWord] = useState<string>('')
