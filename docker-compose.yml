@@ -15,3 +15,4 @@ services:
     restart: always
     container_name: docker-vite
     tty: true
+    env_file: ./vite-project/.env
