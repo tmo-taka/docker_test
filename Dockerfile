@@ -59,6 +59,7 @@ COPY --from=build /work/public /usr/vite-project/public
 COPY --from=build /work/src /usr/vite-project/src
 COPY --from=build /work/lib /usr/vite-project/lib
 COPY --from=build /work/index.html /usr/vite-project/.
+COPY --from=build /work/.env /usr/vite-project/.
 
 # 下記はわりとvite固定値があるらしい
 EXPOSE 5173
