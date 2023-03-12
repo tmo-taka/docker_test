@@ -52,7 +52,7 @@ function App() {
 
   return (
     <div className="App">
-      <h1>TECH BLOG</h1>
+      <h1>TECH BLOG(volumesの変更)</h1>
       <input
         type="text"
         value={searchWorld}

@@ -50,3 +50,12 @@ https://o2mamiblog.com/docker-beginner-2/
 
 ### node_modulesをvolumesのmountから除外する
 https://zenn.dev/yumemi_inc/articles/3d327557af3554
+
+### dockerについて
+https://qiita.com/tearoom6/items/326895f0a35774d70729
+
+## キャッシュ値の詳細
+https://suzuken.hatenablog.jp/entry/2018/12/03/175048
+
+## 即時更新について
+https://qiita.com/YUKI178504/items/7cd63d915915e8f85820
