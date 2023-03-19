@@ -59,3 +59,6 @@ https://suzuken.hatenablog.jp/entry/2018/12/03/175048
 
 ## 即時更新について
 https://qiita.com/YUKI178504/items/7cd63d915915e8f85820
+
+## dockerのベストプラクティス
+https://zenn.dev/masibw/articles/57a47a7381b9b3
