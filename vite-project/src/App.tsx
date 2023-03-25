@@ -1,5 +1,6 @@
 import { useState, useEffect } from 'react'
 import { apiClient } from '@/common/axios';
+import {DisplayLists} from '@/components/DisplayLists'
 import {Item, Tag} from '@/types/Qiita'
 import './App.css'
 
@@ -68,17 +69,9 @@ function App() {
           })
         }
       </ul>
-      <ul>
-        {
-          results.map((data:Item) => {
-            return (
-              <li key={data.title}>
-                <a href={data.url} target="_blank">{data.title}</a>
-              </li>
-            )
-          })
-        }
-      </ul>
+      <DisplayLists
+        lists={results}
+      />
     </div>
   )
 }
