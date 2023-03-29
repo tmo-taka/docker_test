@@ -1,12 +1,15 @@
 import { useState, useEffect } from 'react'
+import { useRecoilValue } from 'recoil'
 import { apiClient } from '@/common/axios';
 import {DisplayLists} from '@/components/DisplayLists'
 import {Item, Tag} from '@/types/Qiita'
+import { authName } from '@/state/Auth';
 
 export const QiitaLists = () => {
     const [searchWorld, setSearchWord] = useState<string>('')
     const [results, setResults] = useState<Item[]>([]);
     const [suggestion, setSuggestion] = useState<Tag[]>([]);
+    const name = useRecoilValue(authName);
 
     const changeWord = (event:React.ChangeEvent<HTMLInputElement>):void => {
         const newValue:string = event.target.value;
@@ -52,6 +55,7 @@ export const QiitaLists = () => {
 
     return (
         <div className="App">
+            <div>ようこそ!{name}さん</div>
             <h1>TECH BLOG(volumesの変更)</h1>
             <input
                 type="text"

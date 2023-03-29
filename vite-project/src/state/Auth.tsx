@@ -6,7 +6,7 @@ export type AuthAtom = {
 }
 
 export const authAtom = atom<AuthAtom>({
-    key: "Auth", // 任意のユニークな名前
+    key: "auth", // 任意のユニークな名前
     // 初期値
     default: {
         id: '',
@@ -14,7 +14,7 @@ export const authAtom = atom<AuthAtom>({
     },
 })
 
-export const authSelector = selector(
+export const authName = selector(
     {
         key: 'authSelector',
         get: ({get}) => {
