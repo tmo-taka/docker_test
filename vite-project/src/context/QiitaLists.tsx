@@ -20,30 +20,30 @@ export const QiitaLists = () => {
 
     const getTagItems = () => {
         apiClient.get(`/tags/${searchWorld}/items`)
-        .then(res => {
-        try {
-            setResults(res.data);
-        }catch(err) {
-            console.log(err);
-        }
-        })
+            .then(res => {
+                try {
+                    setResults(res.data);
+                }catch(err) {
+                    console.log(err);
+                }
+            })
     }
 
     const getTags = () => {
         if(searchWorld) {
-        apiClient.get(`/tags/${searchWorld}`)
-        .then(res => {
-            console.log(res.data);
-            res.data.length ? setSuggestion(res.data) : '';
-        })
+            apiClient.get(`/tags/${searchWorld}`)
+                .then(res => {
+                    console.log(res.data);
+                    res.data.length ? setSuggestion(res.data) : '';
+                })
         }
     }
 
     useEffect(() => {
         apiClient.get('/items')
-        .then(res => {
-            setResults(res.data);
-        })
+            .then(res => {
+                setResults(res.data);
+            })
     },[])
 
     useEffect(() => {

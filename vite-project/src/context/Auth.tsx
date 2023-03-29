@@ -1,4 +1,4 @@
-import { RecoilRoot } from "recoil";
+import { RecoilRoot } from 'recoil';
 import App from '../App'
 
 export const AuthContext = () => {
