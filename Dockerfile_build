@@ -25,17 +25,35 @@ COPY ./vite-project/package-lock.json .
 RUN npm install
 
 #======================================================================================================================
+# build
+#======================================================================================================================
+FROM node:16.19-bullseye as build
+
+WORKDIR /work
+
+# 前タスクのnode.jsから持ってくる
+COPY --from=nodejs /work/node_modules /work/node_modules
+# vite-projectディレクトリのものをwork配下にコピーするという記述
+COPY ./vite-project /work
+
+RUN ls -l
+
+RUN npm run build
+
+#======================================================================================================================
 # runtime
 #======================================================================================================================
 FROM node:16.19-bullseye as run
 
 WORKDIR /usr/vite-project
 
-# 前タスクのnode.jsから持ってくる
-COPY --from=nodejs /work/node_modules /usr/vite-project/node_modules
-# vite-projectディレクトリのものをwork配下にコピーするという記述
-COPY ./vite-project /usr/vite-project
+COPY --from=build /work /usr/vite-project
 
-RUN ls -l
+# 下記はわりとvite固定値があるらしい
+EXPOSE 5173
+ENV VITE_HOST=127.0.0.1
+ENV VITE_PORT=5173
 
 CMD npm run host
+
+# マルチステージにstaticを作って更新頻度の高いものと低いもので分けたほうが良いかも？

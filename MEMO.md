@@ -70,3 +70,8 @@ https://zenn.dev/yuta_ura/articles/react-context-api
 
 ### atomFamily
 https://tech-blog.rakus.co.jp/entry/20221208/recoil
+
+| コマンド | 解説                                                 | 
+| -------- | ---------------------------------------------------- | 
+| CMD      | DockerイメージからDockerコンテナを作成するときに実行 | 
+| RUN      | DockerfileからImageを作成するときに実行              | 

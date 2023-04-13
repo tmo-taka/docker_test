@@ -4,8 +4,9 @@ version: "3"
 #   nestjs-node-modules:
 
 services:
-  docker-test:
+  web:
     image: vite-image:latest
+    container_name: docker-vite
     working_dir: "/usr/vite-project"
     ports:
       - 5173:5173
@@ -18,9 +19,24 @@ services:
       # - src-volume:/usr/vite-project/src
       - ./vite-project/src/:/usr/vite-project/src/
     restart: always
-    container_name: docker-vite
     tty: true
     env_file: ./vite-project/.env
+  server:
+    image: vite-server:latest
+    container_name: vite-server
+    working_dir: "/server"
+    ports:
+      - 8080:8080
+    build:
+      context: .
+      dockerfile: Dockerfile_server
+    # src配下をvolumesとしてmountする
+    # https://github.com/docker/compose/issues/8533
+    volumes:
+      # - src-volume:/usr/vite-project/src
+      - ./server/src/server:/server/src/server
+    restart: always
+    tty: true
 
 volumes:
   src-volume:

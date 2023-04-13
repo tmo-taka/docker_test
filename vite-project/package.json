@@ -4,8 +4,8 @@
   "version": "0.0.0",
   "type": "module",
   "scripts": {
-    "dev:server": "node src/server/server",
     "dev": "vite",
+    "dev:server": "node src/server/server",
     "build": "tsc && vite build",
     "build:server": "vite build --outDir dist/server --ssr src/server/server.js",
     "preview": "vite preview",
