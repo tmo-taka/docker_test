@@ -19,8 +19,8 @@ FROM node:16.19-bullseye as nodejs
 
 WORKDIR /work
 
-COPY ./vite-project/package.json .
-COPY ./vite-project/package-lock.json .
+COPY ./package.json .
+COPY ./package-lock.json .
 
 RUN npm install
 
@@ -34,10 +34,8 @@ WORKDIR /server
 # 前タスクのnode.jsから持ってくる
 COPY --from=nodejs /work/node_modules ./node_modules
 # vite-projectディレクトリのものをwork配下にコピーするという記述
-COPY ./vite-project/package.json .
-COPY ./vite-project/vite.config.ts ./vite.config.ts
-COPY ./vite-project/src/server ./src/server/
+COPY ./server.js .
+COPY ./package.json .
+COPY ./package-lock.json .
 
-RUN ls -l
-
-CMD npm run dev:server
+CMD npm run start

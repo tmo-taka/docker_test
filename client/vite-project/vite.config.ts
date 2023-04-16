@@ -45,6 +45,12 @@ export default defineConfig(({command, mode}) => {
           target: env.VITE_QIITA_API_URL,
           changeOrigin: true,
           rewrite: (path) => path.replace(/^\/qiita-api/, ''),
+        },
+        '^/auth-api': {
+          target: env.AUTH_API_URL,
+          changeOrigin: true,
+          secure: false,
+          rewrite: (path) => path.replace(/^\/auth-api/, ''),
         }
       },
       // hmr: {

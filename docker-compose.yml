@@ -18,25 +18,29 @@ services:
     volumes:
       # - src-volume:/usr/vite-project/src
       - ./client/vite-project/src/:/usr/vite-project/src/
+      # - ./client/vite-project/:/usr/vite-project/
     restart: always
     tty: true
     env_file: ./client/vite-project/.env
-  # server:
-  #   image: vite-server:latest
-  #   container_name: vite-server
-  #   working_dir: "/server"
-  #   ports:
-  #     - 8080:8080
-  #   build:
-  #     context: .
-  #     dockerfile: Dockerfile_server
-  #   # src配下をvolumesとしてmountする
-  #   # https://github.com/docker/compose/issues/8533
-  #   volumes:
-  #     # - src-volume:/usr/vite-project/src
-  #     - ./server/src/server:/server/src/server
-  #   restart: always
-  #   tty: true
+    # depends_onについて　https://gotohayato.com/content/533/
+    depends_on:
+      - server
+  server:
+    image: vite-server-image:latest
+    container_name: vite-server
+    working_dir: "/server"
+    ports:
+      - 8080:8080
+    build:
+      context: ./server
+      dockerfile: Dockerfile
+    # src配下をvolumesとしてmountする
+    # https://github.com/docker/compose/issues/8533
+    volumes:
+      # - src-volume:/usr/vite-project/src
+      - ./server/server.js:/server/server.js
+    restart: always
+    tty: true
 
 volumes:
   src-volume:

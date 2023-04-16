@@ -14,7 +14,7 @@ export const Login = () => {
 
     const submitData = async () => {
         try {
-            const response = await axios.post('http://localhost:8080/auth/',
+            const response = await axios.post('/auth-api/auth/',
                 {
                     name: inputName,
                 },
