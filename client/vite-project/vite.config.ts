@@ -51,6 +51,9 @@ export default defineConfig(({command, mode}) => {
           changeOrigin: true,
           secure: false,
           rewrite: (path) => path.replace(/^\/auth-api/, ''),
+        },
+        watch: {
+          usePolling: true
         }
       },
       // hmr: {

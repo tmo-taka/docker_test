@@ -3,6 +3,16 @@ version: "3"
 # volumes:
 #   nestjs-node-modules:
 
+networks:
+  app_net:
+    driver: bridge
+    ipam:
+      driver: default
+      config:
+        - subnet: 172.30.0.0/24
+          gateway: 172.30.0.1
+
+
 services:
   client:
     image: vite-client-image:latest
@@ -22,6 +32,9 @@ services:
     restart: always
     tty: true
     env_file: ./client/vite-project/.env
+    networks:
+      app_net:
+        ipv4_address: 172.30.0.3
     # depends_onについて　https://gotohayato.com/content/533/
     depends_on:
       - server
@@ -41,6 +54,9 @@ services:
       - ./server/server.js:/server/server.js
     restart: always
     tty: true
+    networks:
+      app_net:
+        ipv4_address: 172.30.0.2
 
 volumes:
   src-volume:
