@@ -29,7 +29,7 @@ services:
       # - ./client/vite-project/src/:/usr/vite-project/src/
       - ./client/vite-project/:/usr/vite-project/
       - remove:/usr/vite-project/node_modules
-    restart: always
+    # restart: always
     tty: true
     env_file: ./client/vite-project/.env
     networks:
@@ -52,7 +52,7 @@ services:
     volumes:
       # - src-volume:/usr/vite-project/src
       - ./server/server.js:/server/server.js
-    restart: always
+    # restart: always
     tty: true
     networks:
       app_net:

@@ -52,13 +52,11 @@ export default defineConfig(({command, mode}) => {
           secure: false,
           rewrite: (path) => path.replace(/^\/auth-api/, ''),
         },
-        watch: {
-          usePolling: true
-        }
       },
-      // hmr: {
-      //   overlay :false
-      // }
+      // NOTE: ホッとリロード追加
+      watch: {
+        usePolling: true
+      }
     },
     css: {
       preprocessorOptions: {
