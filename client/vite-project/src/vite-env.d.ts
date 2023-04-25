@@ -4,6 +4,7 @@
 interface ImportMetaEnv {
     readonly VITE_QIITA_API_ACCESS_TOKEN: string
     readonly VITE_QIITA_API_URL: string
+    readonly AUTH_API_URL: string
 }
 
 interface ImportMeta {

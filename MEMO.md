@@ -41,6 +41,12 @@
 ### 止まっているコンテナ一括削除
 `docker rm `docker ps -f "status=exited" -q``
 
+### コンテナのIPアドレス確認
+`docker inspect コンテナID | grep IPAddress`
+
+### 動いているコンテナを削除
+`docker rm -f <コンテナID>`
+
 ## この問題が起きているくさい
 https://qiita.com/amuyikam/items/01a8c16e3ddbcc734a46
 →関係なく -pオプションでポートフォワードする必要あり。

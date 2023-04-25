@@ -3,40 +3,62 @@ version: "3"
 # volumes:
 #   nestjs-node-modules:
 
+networks:
+  app_net:
+    driver: bridge
+    ipam:
+      driver: default
+      config:
+        - subnet: 172.30.0.0/24
+          gateway: 172.30.0.1
+
 services:
-  web:
-    image: vite-image:latest
-    container_name: docker-vite
+  client:
+    image: vite-client-image:latest
+    container_name: client-vite
     working_dir: "/usr/vite-project"
     ports:
       - 5173:5173
     build:
-      context: .
+      context: ./client
       dockerfile: Dockerfile
     # src配下をvolumesとしてmountする
     # https://github.com/docker/compose/issues/8533
     volumes:
       # - src-volume:/usr/vite-project/src
-      - ./vite-project/src/:/usr/vite-project/src/
-    restart: always
+      # - ./client/vite-project/src/:/usr/vite-project/src/
+      - ./client/vite-project/:/usr/vite-project/
+      - remove:/usr/vite-project/node_modules
+    # restart: always
     tty: true
-    env_file: ./vite-project/.env
+    env_file: ./client/vite-project/.env
+    networks:
+      app_net:
+        ipv4_address: 172.30.0.3
+    # depends_onについて　https://gotohayato.com/content/533/
+    depends_on:
+      - server
   server:
-    image: vite-server:latest
+    image: vite-server-image:latest
     container_name: vite-server
     working_dir: "/server"
     ports:
       - 8080:8080
     build:
-      context: .
-      dockerfile: Dockerfile_server
+      context: ./server
+      dockerfile: Dockerfile
     # src配下をvolumesとしてmountする
     # https://github.com/docker/compose/issues/8533
     volumes:
       # - src-volume:/usr/vite-project/src
-      - ./server/src/server:/server/src/server
-    restart: always
+      - ./server/server.js:/server/server.js
+    # restart: always
     tty: true
+    networks:
+      app_net:
+        ipv4_address: 172.30.0.2
 
+# node_modulesのみvolumesから除外する(https://www.denzow.me/entry/2018/03/18/104708)
 volumes:
-  src-volume:
+  remove:
+    driver: 'local'
