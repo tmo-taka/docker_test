@@ -5,12 +5,12 @@ import {DisplayLists} from '@/components/DisplayLists'
 import {Item, Tag} from '@/types/Qiita'
 import { TagParams } from '@/types/QiitaParams'
 import { authName } from '@/state/Auth';
-import { AxiosRequestConfig } from 'axios';
 
 export const QiitaLists = () => {
     const [searchWorld, setSearchWord] = useState<string>('')
     const [results, setResults] = useState<Item[]>([]);
-    const [suggestion, setSuggestion] = useState<Tag[]>([]);
+    const [allCandidates, setAllCandidates] = useState<string[]>([]);
+    const [suggest, setSuggest] = useState<string[]>([]);
     const name = useRecoilValue(authName);
 
     const changeWord = (event:React.ChangeEvent<HTMLInputElement>):void => {
@@ -19,7 +19,7 @@ export const QiitaLists = () => {
         // https://zenn.dev/syu/articles/3c4aa813b57b8c
     }
 
-    const blurForm = () => {
+    const getQiitaArticles = () => {
         getTagItems();
     }
 
@@ -34,7 +34,7 @@ export const QiitaLists = () => {
             })
     }
 
-    const getTags = async(pageNumber :number):Promise<Tag[]> => {
+    const getTags = async(pageNumber :number):Promise<string[]> => {
         const params: {params?: TagParams} = {
             params: {
                 page: pageNumber,
@@ -43,14 +43,25 @@ export const QiitaLists = () => {
             }
         }
 
-        let responseData:Tag[] = [];
+        let responseData:string[] = [];
 
         await apiClient.get(`/tags`,params)
             .then(res => {
-                responseData = res.data;
+                responseData = res.data.map((obj:Tag) => obj.id);
             })
 
         return responseData;
+    }
+
+    const searchMatches = (searchTerm:string, candidates:string[]) => {
+        const regex = new RegExp(searchTerm, 'i');
+        return candidates.filter(candidate => regex.test(candidate));
+    }
+
+    const setSearchWordFromSuggest = (item:string) => {
+        // NOTE: サジェストから検索ワードをセット
+        setSearchWord(item);
+        getQiitaArticles();
     }
 
     useEffect(() => {
@@ -62,14 +73,20 @@ export const QiitaLists = () => {
 
     useEffect(() => {
         (async() => {
-            let tags:Tag[] = []
+            let tags:string[] = [];
             for(let i=1; i<=10; i++){
                 const responseList = await getTags(i)
                 tags = [...tags, ...responseList];
             }
-            setSuggestion(tags);
+            setAllCandidates(tags);
         })()
     },[])
+
+    useEffect(() => {
+        // NOTE :サジェストのセットをしている
+        const suggest:string[] = searchMatches(searchWorld,allCandidates);
+        if (suggest.length >0 && suggest.length < 1000) { setSuggest(suggest); }
+    },[searchWorld])
 
     return (
         <div className="App">
@@ -79,13 +96,13 @@ export const QiitaLists = () => {
                 type="text"
                 value={searchWorld}
                 onChange={changeWord}
-                onBlur={blurForm}
+                onBlur={getQiitaArticles}
             />
             <ul>
                 {
-                    suggestion?.map((data:Tag) => {
+                    suggest?.map((item:string) => {
                         return (
-                        <li key={data.id}>{data.id}</li>
+                        <li key={item} onClick={() => setSearchWordFromSuggest(item)}>{item}</li>
                         )
                     })
                 }
