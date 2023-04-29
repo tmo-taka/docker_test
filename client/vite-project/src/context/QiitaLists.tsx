@@ -3,7 +3,9 @@ import { useRecoilValue } from 'recoil'
 import { apiClient } from '@/common/axios';
 import {DisplayLists} from '@/components/DisplayLists'
 import {Item, Tag} from '@/types/Qiita'
+import { TagParams } from '@/types/QiitaParams'
 import { authName } from '@/state/Auth';
+import { AxiosRequestConfig } from 'axios';
 
 export const QiitaLists = () => {
     const [searchWorld, setSearchWord] = useState<string>('')
@@ -32,14 +34,23 @@ export const QiitaLists = () => {
             })
     }
 
-    const getTags = () => {
-        if(searchWorld) {
-            apiClient.get(`/tags/${searchWorld}`)
-                .then(res => {
-                    console.log(res.data);
-                    res.data.length ? setSuggestion(res.data) : '';
-                })
+    const getTags = async(pageNumber :number):Promise<Tag[]> => {
+        const params: {params?: TagParams} = {
+            params: {
+                page: pageNumber,
+                sort: 'count',
+                per_page: 100
+            }
         }
+
+        let responseData:Tag[] = [];
+
+        await apiClient.get(`/tags`,params)
+            .then(res => {
+                responseData = res.data;
+            })
+
+        return responseData;
     }
 
     useEffect(() => {
@@ -50,8 +61,15 @@ export const QiitaLists = () => {
     },[])
 
     useEffect(() => {
-        getTags();
-    },[searchWorld])
+        (async() => {
+            let tags:Tag[] = []
+            for(let i=1; i<=10; i++){
+                const responseList = await getTags(i)
+                tags = [...tags, ...responseList];
+            }
+            setSuggestion(tags);
+        })()
+    },[])
 
     return (
         <div className="App">
@@ -65,11 +83,11 @@ export const QiitaLists = () => {
             />
             <ul>
                 {
-                suggestion?.map((data:Tag) => {
-                    return (
-                    <li key={data.id}>{data.id}</li>
-                    )
-                })
+                    suggestion?.map((data:Tag) => {
+                        return (
+                        <li key={data.id}>{data.id}</li>
+                        )
+                    })
                 }
             </ul>
             <DisplayLists
