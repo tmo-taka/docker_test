@@ -24,14 +24,16 @@ export const QiitaLists = () => {
     }
 
     const getTagItems = () => {
-        apiClient.get(`/tags/${searchWorld}/items`)
-            .then(res => {
-                try {
-                    setResults(res.data);
-                }catch(err) {
-                    console.log(err);
-                }
-            })
+        if(searchWorld) {
+            apiClient.get(`/tags/${searchWorld}/items`)
+                .then(res => {
+                    try {
+                        setResults(res.data);
+                    }catch(err) {
+                        console.log(err);
+                    }
+                })
+        }
     }
 
     const getTags = async(pageNumber :number):Promise<string[]> => {
@@ -61,7 +63,6 @@ export const QiitaLists = () => {
     const setSearchWordFromSuggest = (item:string) => {
         // NOTE: サジェストから検索ワードをセット
         setSearchWord(item);
-        getQiitaArticles();
     }
 
     useEffect(() => {
@@ -86,6 +87,7 @@ export const QiitaLists = () => {
         // NOTE :サジェストのセットをしている
         const suggest:string[] = searchMatches(searchWorld,allCandidates);
         if (suggest.length >0 && suggest.length < 1000) { setSuggest(suggest); }
+        getTagItems();
     },[searchWorld])
 
     return (
