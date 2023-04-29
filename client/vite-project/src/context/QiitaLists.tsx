@@ -86,7 +86,11 @@ export const QiitaLists = () => {
     useEffect(() => {
         // NOTE :サジェストのセットをしている
         const suggest:string[] = searchMatches(searchWorld,allCandidates);
-        if (suggest.length >0 && suggest.length < 1000) { setSuggest(suggest); }
+        if (suggest.length >0 && suggest.length < 1000) {
+            // サジェストを最高10個にして　セットする
+            const splitSuggest = suggest.slice(0,10);
+            setSuggest(splitSuggest);
+        }
         getTagItems();
     },[searchWorld])
 
