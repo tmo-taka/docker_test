@@ -103,12 +103,15 @@ export const QiitaLists = () => {
                 value={searchWorld}
                 onChange={changeWord}
                 onBlur={getQiitaArticles}
+                className="p-sm border border-slate-300"
             />
-            <ul>
+            <ul className="border-2 border-main rounded-md p-sm">
                 {
                     suggest?.map((item:string) => {
                         return (
-                        <li key={item} onClick={() => setSearchWordFromSuggest(item)}>{item}</li>
+                        <li key={item} onClick={() => setSearchWordFromSuggest(item)} className="text-font cursor-pointer hover:border-l hover:border-main hover:text-main hover:text-main hover:pl-2">
+                            {item}
+                        </li>
                         )
                     })
                 }

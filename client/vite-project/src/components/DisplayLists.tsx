@@ -13,8 +13,8 @@ export const DisplayLists: FC<propsType> = (props) => {
             {
                 lists.map((data:Item) => {
                     return (
-                        <li key={data.title}>
-                        <a href={data.url} target="_blank">{data.title}</a>
+                        <li key={data.title} className="mb-sm">
+                            <a href={data.url} target="_blank" className="text-blue-600">{data.title}</a>
                         </li>
                     )
                 })

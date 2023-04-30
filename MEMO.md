@@ -47,6 +47,9 @@
 ### 動いているコンテナを削除
 `docker rm -f <コンテナID>`
 
+### イメージ全削除
+`docker rmi $(docker images -q)`
+
 ## この問題が起きているくさい
 https://qiita.com/amuyikam/items/01a8c16e3ddbcc734a46
 →関係なく -pオプションでポートフォワードする必要あり。
