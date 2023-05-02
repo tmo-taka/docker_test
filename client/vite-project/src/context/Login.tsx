@@ -35,8 +35,8 @@ export const Login = () => {
 
     return(
         <div className="container">
-            <div className="title">Name</div>
-            <input type="text" value={inputName} onChange={inputForm}/>
+            <div className="title text-[10vw]">Name</div>
+            <input type="text" value={inputName} onChange={inputForm} className="textForm"/>
             <button onClick={submitData}>ログイン</button>
         </div>
     )

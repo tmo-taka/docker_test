@@ -98,24 +98,26 @@ export const QiitaLists = () => {
         <div className="App">
             <div>ようこそ!{name}さん</div>
             <h1>TECH BLOG(volumesの変更)</h1>
-            <input
-                type="text"
-                value={searchWorld}
-                onChange={changeWord}
-                onBlur={getQiitaArticles}
-                className="p-sm border border-slate-300"
-            />
-            <ul className="border-2 border-main rounded-md p-sm">
-                {
-                    suggest?.map((item:string) => {
-                        return (
-                        <li key={item} onClick={() => setSearchWordFromSuggest(item)} className="text-font cursor-pointer hover:border-l hover:border-main hover:text-main hover:text-main hover:pl-2">
-                            {item}
-                        </li>
-                        )
-                    })
-                }
-            </ul>
+            <div className="relative w-64 mb-24 mx-auto">
+                <input
+                    type="text"
+                    value={searchWorld}
+                    onChange={changeWord}
+                    onBlur={getQiitaArticles}
+                    className="textForm"
+                />
+                <ul className="w-full text-sm font-medium text-gray-900 bg-white border border-gray-200 rounded-lg dark:bg-gray-700 dark:border-gray-600 dark:text-white absolute bottom-100">
+                    {
+                        suggest?.map((item:string) => {
+                            return (
+                            <li key={item} onClick={() => setSearchWordFromSuggest(item)} className="w-full px-4 py-2 border-b border-gray-200 rounded-t-lg dark:border-gray-600 hover:border-main hover:text-main hover:text-main hover:pl-6">
+                                {item}
+                            </li>
+                            )
+                        })
+                    }
+                </ul>
+            </div>
             <DisplayLists
                 lists={results}
             />
