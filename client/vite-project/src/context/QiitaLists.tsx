@@ -95,9 +95,9 @@ export const QiitaLists = () => {
     },[searchWorld])
 
     return (
-        <div className="App">
-            <div>ようこそ!{name}さん</div>
-            <h1>TECH BLOG(volumesの変更)</h1>
+        <div className="App py-md">
+            <div className='text-[2em] text-center'>ようこそ!{name}さん</div>
+            <h1 className='text-[1.6em] text-center mb-lg font-bold'>TECH BLOG(volumesの変更)</h1>
             <div className="relative w-64 mb-24 mx-auto">
                 <input
                     type="text"

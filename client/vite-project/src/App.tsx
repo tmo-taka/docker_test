@@ -11,7 +11,7 @@ const DisplayComponent = () => {
 function App() {
 
   return (
-    <div>
+    <div className="grid h-screen">
       <DisplayComponent />
     </div>
   )

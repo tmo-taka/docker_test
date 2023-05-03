@@ -34,10 +34,12 @@ export const Login = () => {
     }
 
     return(
-        <div className="container">
-            <div className="title text-[10vw]">Name</div>
-            <input type="text" value={inputName} onChange={inputForm} className="textForm"/>
-            <button onClick={submitData}>ログイン</button>
+        <div className="flex space-x-2 items-end place-self-center">
+            <div className="w-64">
+                <div className="title text-lg">Name</div>
+                <input type="text" value={inputName} onChange={inputForm} className="textForm"/>
+            </div>
+            <button onClick={submitData} className="w-32 block rounded-full bg-main text-white p-sm mb-sm">ログイン</button>
         </div>
     )
 }
