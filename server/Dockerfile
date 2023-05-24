@@ -34,8 +34,12 @@ WORKDIR /server
 # 前タスクのnode.jsから持ってくる
 COPY --from=nodejs /work/node_modules ./node_modules
 # vite-projectディレクトリのものをwork配下にコピーするという記述
-COPY ./server.js .
+COPY ./api .
 COPY ./package.json .
 COPY ./package-lock.json .
+
+RUN npm install -g nodemon
+
+ENTRYPOINT ["nodemon", "/server/api/index.js"]
 
 CMD npm run start

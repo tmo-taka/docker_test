@@ -51,7 +51,8 @@ services:
     # https://github.com/docker/compose/issues/8533
     volumes:
       # - src-volume:/usr/vite-project/src
-      - ./server/server.js:/server/server.js
+      - ./server/:/server/
+      - remove-server:/server/node_modules
     # restart: always
     tty: true
     networks:
@@ -61,4 +62,6 @@ services:
 # node_modulesのみvolumesから除外する(https://www.denzow.me/entry/2018/03/18/104708)
 volumes:
   remove:
+    driver: 'local'
+  remove-server:
     driver: 'local'

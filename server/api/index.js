@@ -10,7 +10,7 @@ async function createServer() {
 
     app.post('/auth/', async (req, res,next) => {
         const name = req.body?.name;
-        if(name === 'テスト' ){
+        if(name === 'テス' ){
           const id = uuid4();
           res.send({id});
         }else {
