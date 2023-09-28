@@ -33,11 +33,8 @@ FROM node:16.19-bullseye as run
 WORKDIR /usr/vite-project
 
 # 前タスクのnode.jsから持ってくる
-# vite-projectディレクトリのものをwork配下にコピーするという記述
-COPY ./vite-project /usr/vite-project
-RUN ls -l
-
 COPY --from=nodejs /work/node_modules /usr/vite-project/node_modules
-RUN ls -l
+
+# vite-projectディレクトリのものをwork配下にコピーするという記述
 
 CMD npm run host
